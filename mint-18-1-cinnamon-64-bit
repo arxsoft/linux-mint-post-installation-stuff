@@ -4,7 +4,7 @@
 # -------------------------------------------------
 # Common Stuff
 # -------------------------------------------------
-sudo apt-get install -y rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git scrot flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator &&
+sudo apt-get install -y gparted rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git scrot flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator &&
 # openjdk-7-jdk (not available on Linux Mint 18 Sarah)
 
 
