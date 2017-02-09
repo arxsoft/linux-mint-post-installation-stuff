@@ -1,2 +1,3 @@
-# linux-minute-post-installation-stuff
-Installation of several needful packages I need for my Linux Minut get rocking.
+# Linux Mint - Post Installation Stuff
+
+Installation of several needful packages I need for my Linux Mint get rocking.
