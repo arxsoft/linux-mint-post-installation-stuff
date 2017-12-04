@@ -1,10 +1,11 @@
 #!/bin/bash 
 
+sudo apt update &&
 
 # -------------------------------------------------
 # Common Stuff
 # -------------------------------------------------
-sudo apt-get install -y gparted rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git scrot flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator &&
+sudo apt-get install -y gparted rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git scrot flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator python-pip && 
 # openjdk-7-jdk (not available on Linux Mint 18 Sarah)
 
 
@@ -45,6 +46,7 @@ clear &&
 echo 'Add `Include /etc/phpmyadmin/apache.conf` at end of the opening file and close editor once done.' &&
 sudo gedit /etc/apache2/apache2.conf && #Include /etc/phpmyadmin/apache.conf
 sudo service apache2 restart &&
+mysql -u root -p'root' -e 'SET @@GLOBAL.sql_mode = ""' &&
 
 
 # -------------------------------------------------
