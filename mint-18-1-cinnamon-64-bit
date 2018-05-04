@@ -5,7 +5,7 @@ sudo apt update &&
 # -------------------------------------------------
 # Common Stuff
 # -------------------------------------------------
-sudo apt-get install -y gparted rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git scrot flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator python-pip && 
+sudo apt-get install -y gparted rar unrar vlc gedit composer audacity tesseract-ocr xclip eog sublime-text etherape openssh-server pyrenamer activity-log-manager kolourpaint4 kget filezilla chromium-browser expect gimp git flashplugin-installer meld  gnupg fswebcam python-xlib nautilus-dropbox imagemagick terminator python-pip ruby-sass && 
 # openjdk-7-jdk (not available on Linux Mint 18 Sarah)
 
 
