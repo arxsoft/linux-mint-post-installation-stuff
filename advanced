@@ -1,0 +1,97 @@
+#!/bin/bash
+set -e
+
+apt install -y flameshot gnome-characters compizconfig-settings-manager gnome-tweak-tool xclip eog libtext-lorem-perl gparted audacity tesseract-ocr etherape npm activity-log-manager expect fswebcam imagemagick
+
+# termius-app                # Cross-platform SSH client
+# ghex-udt                   # Hex Editor
+# htop                       # Interactive processes viewer 
+# instagraph                 # Unofficial Native Instagram Client
+# cacher                     # Cacher is a code snippet library for professional developers. Use it to build a technical knowledge base for you and your team.
+
+#snap install bitwarden termius-app ghex-udt htop instagraph cacher fkill 
+#snap install slack --classic
+#snap install nmap
+#snap install atom --classic
+#snap install android-studio --classic
+#echo "PATH=\$PATH:/snap/bin" >> ~/.bashrc
+
+# Python
+apt install python3-pip
+alias python='python3'
+alias pip='pip3'
+pip install requests yfinance pandas streamlit
+
+# NodeJS
+apt-get install curl
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+apt-get install nodejs
+npm install npm@latest -g
+
+# yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt-get update
+apt-get install yarn
+
+# aws
+pip install awscli --upgrade --user
+
+# docker
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+
+apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt update
+# Verify using: apt-cache policy docker-ce
+apt install docker-ce
+systemctl status docker
+# Avoid using sudo every time
+usermod -aG docker asif 
+# run: "su - asif" to restart, 
+# run: "id -nG" to verify
+# run: "docker run hello-world" to test docker
+# ubuntu image: docker run -it ubuntu bash
+# list downloaded images: docker images
+
+# Tweaks
+clear
+read -p "Done installations. Performing some system tweaks now. Hit anything to continue..." X 
+gsettings set org.gnome.desktop.interface cursor-size 48
+gsettings set org.gnome.gedit.preferences.editor auto-indent true
+gsettings set org.gnome.gedit.preferences.editor bracket-matching true
+gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
+gsettings set org.gnome.gedit.preferences.editor insert-spaces true
+gsettings set org.gnome.gedit.preferences.editor tabs-size 4
+gsettings set org.gnome.gedit.preferences.editor auto-save-interval 1
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor background-pattern 'grid'
+gsettings set org.gnome.gedit.preferences.editor wrap-mode 'none'
+
+profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+profile=${profile:1:-1}
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" default-size-columns 180
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" default-size-rows 30
+
+git config --global user.name "Asif"
+git config --global user.email "asif@symits.com"
+git config --global credential.helper 'cache --timeout 18000'
+
+### Shortcuts
+ln -s /home/asif/Dropbox/www/0.__Scripts__ /home/asif/scripts
+ln -s /home/asif/Dropbox/www/0.__Scripts__/ssh /home/asif/ssh
+
+### My Fonts
+ln -s /home/asif/Dropbox/www/0.__Scripts__/system-setup/mint-19-cinnamon-2/Fonts /usr/share/fonts/fontfiles
+fc-cache -fv
+
+### Bash Aliases
+ln -s Dropbox/www/0.__Scripts__/bash_aliases .bash_aliases
+
+        
+    
+
+
+
+
