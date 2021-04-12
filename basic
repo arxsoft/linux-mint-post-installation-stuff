@@ -6,7 +6,7 @@ read -p "Enter your username: " N
 apt update
 
 # General
-apt install -y chrome-gnome-shell nautilus-dropbox nemo virtualbox-qt rar unrar vlc composer  openssh-server kolourpaint4 filezilla chromium-browser gedit gimp git flashplugin-installer meld gnupg sublime-text  
+apt install -y flameshot xclip npm expect activity-log-manager chrome-gnome-shell nautilus-dropbox nemo virtualbox-qt rar unrar vlc composer  openssh-server kolourpaint4 filezilla chromium-browser gedit gimp git flashplugin-installer meld gnupg sublime-text  
 
 # Apache, PHP, MySQL
 apt install -y apache2 mysql-server mysql-client php libapache2-mod-php
@@ -51,6 +51,25 @@ fi
 echo "\$cfg['SendErrorReports'] = 'never';" >> /etc/phpmyadmin/config.inc.php 
 
 service apache2 restart
+
+# Python
+apt install python3-pip
+alias python='python3'
+alias pip='pip3'
+pip install requests yfinance pandas streamlit
+
+# NodeJS
+apt-get install curl
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+apt-get install nodejs
+npm install npm@latest -g
+
+# yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt-get update
+apt-get install yarn
+
 
 read -p "All Done. Hit anything on <enter> key to exit. " X 
 exit 0
