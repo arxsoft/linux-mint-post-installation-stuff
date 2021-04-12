@@ -1,33 +1,55 @@
 #!/bin/bash
 set -e
 
-# root123456 Root1234*
+read -p "Enter your username: " N 
 
 apt update
 
 # General
 apt install -y chrome-gnome-shell nautilus-dropbox nemo virtualbox-qt rar unrar vlc composer  openssh-server kolourpaint4 filezilla chromium-browser gedit gimp git flashplugin-installer meld gnupg sublime-text  
 
-# LAMP
+# Apache, PHP, MySQL
 apt install -y apache2 mysql-server mysql-client php libapache2-mod-php
-mysql_secure_installation
-echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf
-clear
-echo "On another terminal, run 'sudo mysql' and run following query:"
-echo "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[your mysql password here]';"
-echo ""
-read -p "Hit enter when done: " X
-#mysql || true
-apt install -y phpmyadmin  
-echo "\$cfg['SendErrorReports'] = 'never';" >> /etc/phpmyadmin/config.inc.php 
-service apache2 restart
-# sudo dpkg-reconfigure phpmyadmin To reconfigure 
 
-### Localhost
-echo "<?php phpinfo();" > index.php
-mv index.php /var/www/html || true
-mv /var/www/html/index.html /var/www/html/index.apache.html || true
-gedit /etc/php/7.4/apache2/php.ini
+mkdir -p /home/$N/www
+echo "<?php phpinfo();" > /home/$N/www/index.php 
+
+if [ ! -f /etc/apache2/apache2.conf.default ]; then
+    cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.default
+fi
+echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf 
+sed -i "s|<Directory /var/www/>|<Directory /home/$N/www/>|g" /etc/apache2/apache2.conf
+sed -i "172s|AllowOverride None|AllowOverride All|g" /etc/apache2/apache2.conf
+
+if [ ! -f /etc/apache2/sites-available/000-default.conf.default ]; then
+    cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.default
+fi
+sed -i "s|DocumentRoot /var/www/html|DocumentRoot /home/$N/www|g" /etc/apache2/sites-available/000-default.conf
+
+if [ ! -f /etc/apache2/envvars.default ]; then
+    cp /etc/apache2/envvars /etc/apache2/envvars.default
+fi
+sed -i "s/www-data/$N/g" /etc/apache2/envvars
+
+if [ ! -f /etc/php/7.4/apache2/php.ini.default ]; then
+    cp /etc/php/7.4/apache2/php.ini /etc/php/7.4/apache2/php.ini.default
+fi 
+sed -i "s/display_errors = Off/display_errors = On/g" /etc/php/7.4/apache2/php.ini
+sed -i "s/post_max_size = 8M/post_max_size = 8000M/g" /etc/php/7.4/apache2/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8000M/g" /etc/php/7.4/apache2/php.ini
+
+mysql_secure_installation 
+mysql -u root -p'root' -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';" 
+
+# phpMyAdmin
+apt install -y phpmyadmin  
+# sudo dpkg-reconfigure phpmyadmin
+
+if [ ! -f /etc/phpmyadmin/config.inc.php.default ]; then
+    cp /etc/phpmyadmin/config.inc.php /etc/phpmyadmin/config.inc.php.default
+fi
+echo "\$cfg['SendErrorReports'] = 'never';" >> /etc/phpmyadmin/config.inc.php 
+
 service apache2 restart
 
 read -p "All Done. Hit anything on <enter> key to exit. " X 
