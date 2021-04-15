@@ -60,7 +60,7 @@ echo "\$cfg['SendErrorReports'] = 'never';" >> /etc/phpmyadmin/config.inc.php
 chown $N:$N -R /home/$N/www
 service apache2 restart
 
-# PHP 5.4
+# PHP 5.6
 echo 
 echo "PHP $PHP_VERISON, Apache, MySQL, PHPMyAdmin have been installed." 
 read -p "Do you want to install PHP 5.6 instead? " -n 1 -r
