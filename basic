@@ -56,6 +56,7 @@ if [ ! -f /etc/phpmyadmin/config.inc.php.default ]; then
     cp /etc/phpmyadmin/config.inc.php /etc/phpmyadmin/config.inc.php.default
 fi
 echo "\$cfg['SendErrorReports'] = 'never';" >> /etc/phpmyadmin/config.inc.php 
+echo "\$cfg['MaxNavigationItems'] = 500;" >> /etc/phpmyadmin/config.inc.php 
 
 chown $N:$N -R /home/$N/www
 service apache2 restart
